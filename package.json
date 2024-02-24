@@ -1,5 +1,15 @@
 {
   "dependencies": {
     "@nimashoghi/qr-code-styling": "^1.3.9"
-  }
+  },
+  "name": "qr-generator",
+  "description": "",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

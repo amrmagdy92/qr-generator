@@ -4,6 +4,8 @@ import bodyParser from "body-parser"
 import compress from "compression"
 import helmet from "helmet"
 
+import qrRouter from "./routers/qr.route"
+
 dotenv.config()
 
 const app = express()
@@ -28,5 +30,7 @@ app.use((err, req, res, next) => {
         console.log(err)
     }
 })
+
+app.use('/api/v1/qr', qrRouter)
 
 export default app

@@ -112,7 +112,7 @@ const backgroundOptionsValidator = (backgroundOptions) => {
 
 const optionsValidator = (options) => {
     let errors = {}
-    if (typeof backgroundOptions !== "object") {
+    if (typeof options !== "object") {
         errors["type"] = "Invalid object type"
     } else {
         let optionsKeys = Object.keys(options)
@@ -137,4 +137,6 @@ const optionsValidator = (options) => {
     return errors
 }
 
-export default optionsValidator
+export {
+    optionsValidator
+}

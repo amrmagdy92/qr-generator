@@ -1,0 +1,5 @@
+const validateQROptions = () => {}
+
+export {
+    validateQROptions
+}

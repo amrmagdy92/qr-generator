@@ -1,7 +1,10 @@
+import dotenv from "dotenv"
 import express from "express"
 import bodyParser from "body-parser"
 import compress from "compression"
 import helmet from "helmet"
+
+dotenv.config()
 
 const app = express()
 

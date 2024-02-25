@@ -1,4 +1,3 @@
-import fs from "fs"
 import qrGenerator from "@nimashoghi/qr-code-styling"
 import nodeCanvas from "canvas"
 import { optionsValidator } from "../helpers/qr.helper"
@@ -13,7 +12,7 @@ const generateQR = (options) => {
             })
         } else {
             let nodeOptions = {nodeCanvas, ...options}
-            let generatedQR = new qrGenerator(nodeOptions).download({ buffer: true })
+            new qrGenerator(nodeOptions).download({ buffer: true })
             .then((buffer) => {
                 resolve({
                     code: 200,

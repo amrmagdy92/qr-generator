@@ -15,12 +15,9 @@ const generateQR = (options) => {
             let nodeOptions = {nodeCanvas, ...options}
             let generatedQR = new qrGenerator(nodeOptions).download({ buffer: true })
             .then((buffer) => {
-                let qrName = `qr_${Date.now()}.png`
-                fs.writeFileSync(qrName, buffer)
-                let file = fs.readFileSync(qrName)
                 resolve({
                     code: 200,
-                    msg: file
+                    msg: buffer
                 })
             })
         }

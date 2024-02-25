@@ -3,6 +3,7 @@ import express from "express"
 import bodyParser from "body-parser"
 import compress from "compression"
 import helmet from "helmet"
+import cors from "cors"
 
 import qrRouter from "./routers/qr.route"
 
@@ -15,11 +16,16 @@ const configuredBodyParserJSON = bodyParser.json()
 const configuredBodyParserURLEncoding = bodyParser.urlencoded({ extended: true })
 const configuredCompress = compress()
 const configuredHelmet = helmet()
+const configuredCors = cors({
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE']
+})
 
 app.use(configuredBodyParserJSON)
 app.use(configuredBodyParserURLEncoding)
 app.use(configuredCompress)
 app.use(configuredHelmet)
+app.use(configuredCors)
 
 // TODO: Add better UX for the below error handling
 app.use((err, req, res, next) => {

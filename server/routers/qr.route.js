@@ -1,3 +1,4 @@
+import path from "path"
 import { Router } from "express"
 import { generateQR } from "../controllers/qr.controller"
 
@@ -9,7 +10,8 @@ router.route('/')
         .then(result => {
             let responseCode = result.code
             let data = result.msg
-            response.status(responseCode).json({ msg: data })
+            let filePath = path.join(__dirname, data)
+            response.status(responseCode).sendFile(filePath)
         })
         .catch( error => {
             let responseCode = error.code

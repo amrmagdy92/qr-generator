@@ -10,8 +10,7 @@ router.route('/')
         .then(result => {
             let responseCode = result.code
             let data = result.msg
-            let filePath = path.join(__dirname, data)
-            response.status(responseCode).sendFile(filePath)
+            response.status(responseCode).json({ msg: data })
         })
         .catch( error => {
             let responseCode = error.code

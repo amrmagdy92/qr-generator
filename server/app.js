@@ -15,7 +15,9 @@ const app = express()
 const configuredBodyParserJSON = bodyParser.json()
 const configuredBodyParserURLEncoding = bodyParser.urlencoded({ extended: true })
 const configuredCompress = compress()
-const configuredHelmet = helmet()
+const configuredHelmet = helmet({
+    crossOriginResourcePolicy: false,
+})
 const configuredCors = cors({
     origin: '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE']

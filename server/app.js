@@ -4,6 +4,7 @@ import bodyParser from "body-parser"
 import compress from "compression"
 import helmet from "helmet"
 import cors from "cors"
+import session from "express-session"
 
 import qrRouter from "./routers/qr.route"
 
@@ -22,12 +23,18 @@ const configuredCors = cors({
     origin: '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE']
 })
+const configuredSession = session({
+    secret: process.env.SESSION_SECRET,
+    cookie: process.env.TTL,
+    saveUninitialized: process.env.SESSION_UNINITIALIZED
+})
 
 app.use(configuredBodyParserJSON)
 app.use(configuredBodyParserURLEncoding)
 app.use(configuredCompress)
 app.use(configuredHelmet)
 app.use(configuredCors)
+app.use(configuredSession)
 
 // TODO: Add better UX for the below error handling
 app.use((err, req, res, next) => {

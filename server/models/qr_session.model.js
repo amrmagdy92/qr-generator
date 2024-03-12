@@ -5,6 +5,10 @@ const qr_object = new Schema({
         type: String,
         required: "Session ID is needed"
     },
+    options: {
+        type: String,
+        required: "QR Options is required"
+    },
     generated_qr_base64: {
         type: String,
         required: "Generated QR string is required"

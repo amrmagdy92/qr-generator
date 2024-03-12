@@ -5,6 +5,8 @@ import compress from "compression"
 import helmet from "helmet"
 import cors from "cors"
 import session from "express-session"
+import redis from "redis"
+import connectRedis from "connect-redis"
 
 import qrRouter from "./routers/qr.route"
 
@@ -23,10 +25,22 @@ const configuredCors = cors({
     origin: '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE']
 })
+const RedisStore = connectRedis(session)
+const redisClient = redis.createClient({
+    port: process.env.REDIS_PORT,
+    host: process.env.REDIS_HOST
+})
 const configuredSession = session({
+    store: new RedisStore({client: redisClient}),
     secret: process.env.SESSION_SECRET,
-    cookie: process.env.TTL,
-    saveUninitialized: process.env.SESSION_UNINITIALIZED
+    saveUninitialized: process.env.SESSION_UNINITIALIZED,
+    resave: false,
+    cookie: {
+        secure: false, // if true, only transmits cookie over https
+        httpOnly: true, // if true, prevents client side js from reading the cookie
+        maxAge: process.env.TTL,
+        sameSite: 'lax'
+    }
 })
 
 app.use(configuredBodyParserJSON)

@@ -36,7 +36,7 @@ const configuredCors = cors({
     origin: '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE']
 })
-const RedisStore = connectRedis(session).default
+const RedisStore = connectRedis(session)
 const redisClient = redis.createClient({
     port: process.env.REDIS_PORT,
     host: process.env.REDIS_HOST

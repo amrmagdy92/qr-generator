@@ -36,14 +36,10 @@ const configuredCors = cors({
     methods: ['GET', 'POST', 'PUT', 'DELETE']
 })
 const memoryStore = memoryStorage(session)
-const redisClient = redis.createClient({
-    port: process.env.REDIS_PORT,
-    host: process.env.REDIS_HOST
-})
 const configuredSession = session({
     store: new memoryStore({
-        checkPeriod: process.env.SESSION_CHECK_PERIOD,
-        ttl: process.env.TTL,
+        checkPeriod: Number(process.env.SESSION_CHECK_PERIOD),
+        ttl: Number(process.env.TTL),
         dispose: () => {} // TODO: dispose of database entry where session id is the key
     }),
     secret: process.env.SESSION_SECRET,
@@ -52,7 +48,7 @@ const configuredSession = session({
     cookie: {
         secure: false, // if true, only transmits cookie over https
         httpOnly: true, // if true, prevents client side js from reading the cookie
-        maxAge: process.env.TTL,
+        maxAge: Number(process.env.TTL),
         sameSite: 'lax'
     }
 })
@@ -72,6 +68,10 @@ app.use((err, req, res, next) => {
         res.status(400).json({"error": `${err.name}: ${err.message}`})
         console.log(err)
     }
+})
+
+app.get('/' , (req,res) => {
+    console.log(req.session)
 })
 
 app.use('/api/v1/qr', qrRouter)

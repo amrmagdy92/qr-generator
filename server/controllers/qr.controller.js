@@ -1,5 +1,3 @@
-import fs from "fs"
-import path from "path"
 import qrGenerator from "@nimashoghi/qr-code-styling"
 import nodeCanvas from "canvas"
 import { optionsValidator } from "../helpers/qr.helper"

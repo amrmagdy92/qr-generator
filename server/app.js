@@ -70,10 +70,6 @@ app.use((err, req, res, next) => {
     }
 })
 
-app.get('/' , (req,res) => {
-    console.log(req.session)
-})
-
 app.use('/api/v1/qr', qrRouter)
 
 export default app

@@ -3,6 +3,15 @@ import nodeCanvas from "canvas"
 import { optionsValidator } from "../helpers/qr.helper"
 import qrObject from "../models/qr_session.model"
 
+// TODO: Implement the below logic in a new function
+// 1. check for incoming updates
+// 2. check the database based on the session id
+// 3. retrieve the options field
+// 4. update the options field based on the new options given
+// 5. return the new options
+
+const generateOptions = (session, options) => {}
+
 const generateQR = (sid, options) => {
     return new Promise((resolve, reject) => {
         let validationErrors = optionsValidator(options)

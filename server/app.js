@@ -7,12 +7,23 @@ import cors from "cors"
 import session from "express-session"
 import redis from "redis"
 import connectRedis from "connect-redis"
+import mongoose from "mongoose"
 
 import qrRouter from "./routers/qr.route"
 
 dotenv.config()
 
 const app = express()
+
+mongoose.Promise = global.Promise
+
+mongoose.set('strictQuery', false)
+
+mongoose.connect(process.env.DATABASE_URL, { dbName: process.env.DATABASE_NAME }).then( () => {
+    console.log(`Database connected successfully @ ${process.env.DATABASE_URL}`)
+}).catch( (err) => {
+    console.log(`An error was encountered: ${err}`)
+})
 
 // TODO: Add proper configuration here
 const configuredBodyParserJSON = bodyParser.json()
@@ -25,7 +36,7 @@ const configuredCors = cors({
     origin: '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE']
 })
-const RedisStore = connectRedis(session)
+const RedisStore = connectRedis(session).default
 const redisClient = redis.createClient({
     port: process.env.REDIS_PORT,
     host: process.env.REDIS_HOST

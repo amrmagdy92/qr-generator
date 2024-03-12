@@ -5,8 +5,7 @@ import compress from "compression"
 import helmet from "helmet"
 import cors from "cors"
 import session from "express-session"
-import redis from "redis"
-import connectRedis from "connect-redis"
+import memoryStorage from "memorystore"
 import mongoose from "mongoose"
 
 import qrRouter from "./routers/qr.route"
@@ -36,13 +35,17 @@ const configuredCors = cors({
     origin: '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE']
 })
-const RedisStore = connectRedis(session)
+const memoryStore = memoryStorage(session)
 const redisClient = redis.createClient({
     port: process.env.REDIS_PORT,
     host: process.env.REDIS_HOST
 })
 const configuredSession = session({
-    store: new RedisStore({client: redisClient}),
+    store: new memoryStore({
+        checkPeriod: process.env.SESSION_CHECK_PERIOD,
+        ttl: process.env.TTL,
+        dispose: () => {} // TODO: dispose of database entry where session id is the key
+    }),
     secret: process.env.SESSION_SECRET,
     saveUninitialized: process.env.SESSION_UNINITIALIZED,
     resave: false,

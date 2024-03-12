@@ -12,6 +12,8 @@ import qrObject from "../models/qr_session.model"
 
 const generateOptions = (session, options) => {}
 
+// TODO: Implement a function when the client sends a GET request, the server responds with the default QR options values
+
 const generateQR = (sid, options) => {
     return new Promise((resolve, reject) => {
         let validationErrors = optionsValidator(options)

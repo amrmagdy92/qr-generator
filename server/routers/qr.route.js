@@ -1,4 +1,3 @@
-import path from "path"
 import { Router } from "express"
 import { generateQR } from "../controllers/qr.controller"
 

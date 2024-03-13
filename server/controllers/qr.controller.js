@@ -3,16 +3,95 @@ import nodeCanvas from "canvas"
 import { optionsValidator } from "../helpers/qr.helper"
 import qrObject from "../models/qr_session.model"
 
-// TODO: Implement the below logic in a new function
-// 1. check for incoming updates
-// 2. check the database based on the session id
-// 3. retrieve the options field
-// 4. update the options field based on the new options given
-// 5. return the new options
-
-const generateOptions = (session, options) => {}
-
-// TODO: Implement a function when the client sends a GET request, the server responds with the default QR options values
+const defaultQROptions = () => {
+    return {
+        code: 200,
+        msg: {
+            "width": 300,
+            "height": 300,
+            "data": "https://www.linkedin.com/in/amaa/",
+            "margin": 0,
+            "qrOptions": {
+                "typeNumber": "0",
+                "mode": "Byte",
+                "errorCorrectionLevel": "H"
+            },
+            "imageOptions": {
+                "hideBackgroundDots": true,
+                "imageSize": 0.2,
+                "margin": 0
+            },
+            "dotsOptions": {
+                "type": "dots",
+                "color": "#0a66c2"
+            },
+            "backgroundOptions": {
+                "color": "#ffffff"
+            },
+            "image": "",
+            "dotsOptionsHelper": {
+                "colorType": {
+                    "single": true,
+                    "gradient": false
+                },
+                "gradient": {
+                    "linear": true,
+                    "radial": false,
+                    "color1": "#6a1a4c",
+                    "color2": "#6a1a4c",
+                    "rotation": "0"
+                }
+            },
+            "cornersSquareOptions": {
+                "type": "dot",
+                "color": "#0a66c2"
+            },
+            "cornersSquareOptionsHelper": {
+                "colorType": {
+                    "single": true,
+                    "gradient": false
+                },
+                "gradient": {
+                    "linear": true,
+                    "radial": false,
+                    "color1": "#000000",
+                    "color2": "#000000",
+                    "rotation": "0"
+                }
+            },
+            "cornersDotOptions": {
+                "type": "",
+                "color": "#000000"
+            },
+            "cornersDotOptionsHelper": {
+                "colorType": {
+                    "single": true,
+                    "gradient": false
+                },
+                "gradient": {
+                    "linear": true,
+                    "radial": false,
+                    "color1": "#000000",
+                    "color2": "#000000",
+                    "rotation": "0"
+                }
+            },
+            "backgroundOptionsHelper": {
+                "colorType": {
+                    "single": true,
+                    "gradient": false
+                },
+                "gradient": {
+                    "linear": true,
+                    "radial": false,
+                    "color1": "#ffffff",
+                    "color2": "#ffffff",
+                    "rotation": "0"
+                }
+            }
+        }
+    }
+}
 
 const generateQR = (sid, options) => {
     return new Promise((resolve, reject) => {
@@ -60,5 +139,6 @@ const generateQR = (sid, options) => {
 }
 
 export {
-    generateQR
+    generateQR,
+    defaultQROptions
 }

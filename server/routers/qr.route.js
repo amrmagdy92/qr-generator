@@ -1,9 +1,13 @@
 import { Router } from "express"
-import { generateQR } from "../controllers/qr.controller"
+import { generateQR, defaultQROptions } from "../controllers/qr.controller"
 
 const router = Router()
 
 router.route('/')
+    .get((request, response) => {
+        let payload = defaultQROptions()
+        response.status(payload.code).json({ msg: payload.msg })
+    })
     .post((request, response) => {
         generateQR(request.session.id ,request.body.options)
         .then(result => {

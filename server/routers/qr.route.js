@@ -9,7 +9,7 @@ router.route('/')
         response.status(payload.code).json({ msg: payload.msg })
     })
     .post((request, response) => {
-        generateQR(request.session.id ,request.body.options)
+        generateQR(request.session.id ,request.body)
         .then(result => {
             let responseCode = result.code
             let data = result.msg

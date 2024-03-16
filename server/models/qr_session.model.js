@@ -6,7 +6,7 @@ const qr_object = new Schema({
         required: "Session ID is needed"
     },
     options: {
-        type: String,
+        type: Object,
         required: "QR Options is required",
         default: {
             "width": 300,

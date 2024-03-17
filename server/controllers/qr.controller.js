@@ -138,7 +138,27 @@ const generateQR = (sid, options) => {
     })
 }
 
+const deleteGeneratedQR = (sid) => {
+    return new Promise((resolve, reject) => {
+        qrObject.findOneAndDelete({session_id: sid})
+        .then( result => {
+            if (!result) {
+                reject({
+                    code: 404,
+                    msg: "Couldn't find related QR object"
+                })
+            } else {
+                resolve({
+                    code: 200,
+                    msg: "QR object has been deleted successfully"
+                })
+            }
+        })
+    })
+}
+
 export {
     generateQR,
-    defaultQROptions
+    defaultQROptions,
+    deleteGeneratedQR
 }

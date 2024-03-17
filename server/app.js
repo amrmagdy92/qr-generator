@@ -20,7 +20,7 @@ mongoose.Promise = global.Promise
 mongoose.set('strictQuery', false)
 
 mongoose.connect(process.env.DATABASE_URL, { dbName: process.env.DATABASE_NAME }).then( () => {
-    console.log(`Database connected successfully @ ${process.env.DATABASE_URL}`)
+    console.log('Database connected successfully...')
 }).catch( (err) => {
     console.log(`An error was encountered: ${err}`)
 })

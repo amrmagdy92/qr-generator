@@ -109,7 +109,7 @@ const generateQR = (sid, options) => {
                 qrObject.find({ session_id: sid })
                 .then( storedQR => {
                     if (storedQR.length > 0) {
-                        qrObject.findByIdAndUpdate(storedQR[0]._id, { generated_qr_base64: base64QR })
+                        qrObject.findByIdAndUpdate(storedQR[0]._id, { generated_qr_base64: base64QR, generated_qr_image: buffer })
                         .then( updatedQr => {
                             if (!updatedQr) {
                                 reject({
@@ -126,7 +126,8 @@ const generateQR = (sid, options) => {
                     } else {
                         qrObject.create({
                             session_id: sid,
-                            generated_qr_base64: base64QR
+                            generated_qr_base64: base64QR,
+                            generated_qr_image: buffer
                         }).then( createdQR => {
                             resolve({
                                 code: 200,

@@ -7,6 +7,7 @@ import cors from "cors"
 import session from "express-session"
 import memoryStorage from "memorystore"
 import mongoose from "mongoose"
+import expressRateLimiter from "express-rate-limit"
 
 import qrRouter from "./routers/qr.route"
 
@@ -52,6 +53,12 @@ const configuredSession = session({
         sameSite: 'lax'
     }
 })
+const configuredRateLimiter = expressRateLimiter({
+    window: 30*1000,
+    max: 15,
+    message: "You've requested this site too frequently.\nPlease wait for a while before making a new request.",
+    Headers: true
+})
 
 app.use(configuredBodyParserJSON)
 app.use(configuredBodyParserURLEncoding)
@@ -59,6 +66,7 @@ app.use(configuredCompress)
 app.use(configuredHelmet)
 app.use(configuredCors)
 app.use(configuredSession)
+app.use(configuredRateLimiter)
 
 // TODO: Add better UX for the below error handling
 app.use((err, req, res, next) => {
@@ -68,6 +76,10 @@ app.use((err, req, res, next) => {
         res.status(400).json({"error": `${err.name}: ${err.message}`})
         console.log(err)
     }
+})
+
+app.get('/',(req, res) => {
+    res.send("Hello")
 })
 
 app.use('/api/v1/qr', qrRouter)

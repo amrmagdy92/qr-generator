@@ -33,7 +33,7 @@ const configuredHelmet = helmet({
     crossOriginResourcePolicy: false,
 })
 const configuredCors = cors({
-    origin: 'http://127.0.0.1:5500',
+    origin: 'https://amrmagdy92.github.io/qr-generation/',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
 })

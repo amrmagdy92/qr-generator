@@ -33,8 +33,9 @@ const configuredHelmet = helmet({
     crossOriginResourcePolicy: false,
 })
 const configuredCors = cors({
-    origin: '*',
-    methods: ['GET', 'POST', 'PUT', 'DELETE']
+    origin: 'http://127.0.0.1:5500',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true
 })
 const memoryStore = memoryStorage(session)
 const configuredSession = session({
@@ -45,9 +46,9 @@ const configuredSession = session({
     }),
     secret: process.env.SESSION_SECRET,
     saveUninitialized: process.env.SESSION_UNINITIALIZED,
-    resave: false,
+    resave: true,
     cookie: {
-        secure: false, // if true, only transmits cookie over https
+        // secure: false, // if true, only transmits cookie over https
         httpOnly: true, // if true, prevents client side js from reading the cookie
         maxAge: Number(process.env.TTL),
         sameSite: 'lax'

@@ -8,6 +8,10 @@ const qr_object = new Schema({
     generated_qr_base64: {
         type: String,
         required: "Generated QR string is required"
+    },
+    generated_qr_image: {
+        type: Buffer,
+        required: "Image is required"
     }
 })
 

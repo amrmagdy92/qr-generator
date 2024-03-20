@@ -68,8 +68,6 @@ app.use(configuredCors)
 app.use(configuredSession)
 app.use(configuredRateLimiter)
 
-app.set('trust proxy', true)
-
 // TODO: Add better UX for the below error handling
 app.use((err, req, res, next) => {
     if (err.name === "UnauthorizedError") {

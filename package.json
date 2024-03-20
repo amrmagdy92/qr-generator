@@ -20,7 +20,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon"
+    "dev": "nodemon",
+    "prod": "webpack --mode=production --config webpack.config.server.js && node ./dist/server.generated.js"
   },
   "keywords": [],
   "author": "",

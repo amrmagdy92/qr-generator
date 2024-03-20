@@ -33,7 +33,7 @@ const configuredHelmet = helmet({
     crossOriginResourcePolicy: false,
 })
 const configuredCors = cors({
-    origin: 'https://amrmagdy92.github.io',
+    origin: process.env.CORS_ORIGIN,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
 })
@@ -41,8 +41,7 @@ const memoryStore = memoryStorage(session)
 const configuredSession = session({
     store: new memoryStore({
         checkPeriod: Number(process.env.SESSION_CHECK_PERIOD),
-        ttl: Number(process.env.TTL),
-        dispose: () => {} // TODO: dispose of database entry where session id is the key
+        ttl: Number(process.env.TTL)
     }),
     secret: process.env.SESSION_SECRET,
     saveUninitialized: process.env.SESSION_UNINITIALIZED,

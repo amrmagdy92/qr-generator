@@ -17,7 +17,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon",
-    "prod": "webpack --mode=production --config webpack.config.server.js && node ./dist/server.generated.js"
+    "build": "webpack --mode=production --config webpack.config.server.js",
+    "prod": "node ./dist/server.generated.js"
   },
   "keywords": [],
   "author": "",

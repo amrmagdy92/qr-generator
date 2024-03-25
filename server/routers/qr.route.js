@@ -9,7 +9,7 @@ router.route('/')
         response.status(payload.code).json({ msg: payload.msg })
     })
     .post((request, response) => {
-        generateQR(request.session.id ,request.body)
+        generateQR(request.body.device ,JSON.parse(request.body.data))
         .then(result => {
             let responseCode = result.code
             let data = result.msg
@@ -22,7 +22,7 @@ router.route('/')
         })
     })
     .delete((request, response) => {
-        deleteGeneratedQR(request.session.id)
+        deleteGeneratedQR(request.body.device)
         .then(result => {
             let responseCode = result.code
             let data = result.msg

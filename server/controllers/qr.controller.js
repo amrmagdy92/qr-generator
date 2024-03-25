@@ -1,7 +1,7 @@
 import qrGenerator from "@nimashoghi/qr-code-styling"
 import nodeCanvas from "canvas"
 import { optionsValidator } from "../helpers/qr.helper"
-import qrObject from "../models/qr_session.model"
+import qrObject from "../models/qr.model"
 
 const defaultQROptions = () => {
     return {
@@ -93,7 +93,7 @@ const defaultQROptions = () => {
     }
 }
 
-const generateQR = (sid, options) => {
+const generateQR = (devUUID, options) => {
     return new Promise((resolve, reject) => {
         let validationErrors = optionsValidator(options)
         if (Object.keys(validationErrors).length > 0) {
@@ -106,7 +106,7 @@ const generateQR = (sid, options) => {
             new qrGenerator(nodeOptions).download({ buffer: true })
             .then((buffer) => {
                 const base64QR = buffer.toString('base64')
-                qrObject.find({ session_id: sid })
+                qrObject.find({ device_uuid: devUUID })
                 .then( storedQR => {
                     if (storedQR.length > 0) {
                         qrObject.findByIdAndUpdate(storedQR[0]._id, { generated_qr_base64: base64QR, generated_qr_image: buffer })
@@ -125,7 +125,7 @@ const generateQR = (sid, options) => {
                         })
                     } else {
                         qrObject.create({
-                            session_id: sid,
+                            device_uuid: devUUID,
                             generated_qr_base64: base64QR,
                             generated_qr_image: buffer
                         }).then( createdQR => {
@@ -146,9 +146,9 @@ const generateQR = (sid, options) => {
     })
 }
 
-const deleteGeneratedQR = (sid) => {
+const deleteGeneratedQR = (devUUID) => {
     return new Promise((resolve, reject) => {
-        qrObject.findOneAndDelete({session_id: sid})
+        qrObject.findOneAndDelete({device_uuid: devUUID})
         .then( result => {
             if (!result) {
                 reject({

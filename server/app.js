@@ -4,8 +4,6 @@ import bodyParser from "body-parser"
 import compress from "compression"
 import helmet from "helmet"
 import cors from "cors"
-import session from "express-session"
-import memoryStorage from "memorystore"
 import mongoose from "mongoose"
 import expressRateLimiter from "express-rate-limit"
 
@@ -37,22 +35,6 @@ const configuredCors = cors({
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
 })
-const memoryStore = memoryStorage(session)
-const configuredSession = session({
-    store: new memoryStore({
-        checkPeriod: Number(process.env.SESSION_CHECK_PERIOD),
-        ttl: Number(process.env.TTL)
-    }),
-    secret: process.env.SESSION_SECRET,
-    saveUninitialized: process.env.SESSION_UNINITIALIZED,
-    resave: true,
-    cookie: {
-        // secure: false, // if true, only transmits cookie over https
-        httpOnly: true, // if true, prevents client side js from reading the cookie
-        maxAge: Number(process.env.TTL),
-        sameSite: 'lax'
-    }
-})
 const configuredRateLimiter = expressRateLimiter({
     window: 30*1000,
     max: 15,
@@ -65,7 +47,6 @@ app.use(configuredBodyParserURLEncoding)
 app.use(configuredCompress)
 app.use(configuredHelmet)
 app.use(configuredCors)
-app.use(configuredSession)
 app.use(configuredRateLimiter)
 
 // TODO: Add better UX for the below error handling

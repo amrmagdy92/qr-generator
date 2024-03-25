@@ -1,9 +1,9 @@
 import { Schema, model } from "mongoose"
 
 const qr_object = new Schema({
-    session_id: {
+    device_uuid: {
         type: String,
-        required: "Session ID is needed"
+        required: "Device UUID is required"
     },
     generated_qr_base64: {
         type: String,

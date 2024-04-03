@@ -12,6 +12,10 @@ const qr_object = new Schema({
     generated_qr_image: {
         type: Buffer,
         required: "Image is required"
+    },
+    created_at: {
+        type: Date,
+        default: Date.now()
     }
 })
 
